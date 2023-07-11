@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
+@import "./normalize/normalize";
+@import "./dir/register";
+
+*{
+  font-family: 'Montserrat', sans-serif;
+}
+body{
+  background-color: #1B262C;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+  box-shadow: 0 0 0 30px #BBE1FA inset !important;
+}
+.tac{
+  text-align: center;
+  a{
+    margin-left: 15px;
+  }
+}
