@@ -33,13 +33,13 @@ const Header = () => {
                 <div className="header__info">
                     <Link to="/" className="header_link">Обменять</Link>
                     <Link to="/" className="header_link">Резервы</Link>
-                    <Link to="/" className="header_link">Партнерам</Link>
-                    <Link to="/" className="header_link">FAQ</Link>
+                    <Link to="/partners" className="header_link">Партнерам</Link>
+                    <Link to="/FAQ" className="header_link">FAQ</Link>
                     <Link to="/" className="header_link">История</Link>
                     <Link to="/" className="header_link">Тех. поддержка</Link>
                 </div>
                 <nav className="header__btn">
-                    {isUserReg ? <button className="btn_reg" onClick={Exit}>Вийти</button> :
+                    {isUserReg ? <button className="btn_reg" onClick={Exit}>Выйти</button> :
                         <div className="header__btn_box">
                             <Link to="/login" className="header_link">Войти</Link>
                             <Link to="/register" className="header_link second">Регистрация</Link>
