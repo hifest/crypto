@@ -22,10 +22,14 @@ export const Converter = () => {
     const [snackbarMessage, setSnackbarMessage] = useState('');
 
     useEffect(() => {
+        submit();
+    }, []);
+
+    useEffect(() => {
         validate();
     }, [currencyFromValue, amountFromValue, currencyToValue]);
 
-    const validate = () => {
+    const confirm = () => {
         if (
             currencyFromValue !== '' &&
             amountFromValue !== '' &&
@@ -35,6 +39,23 @@ export const Converter = () => {
             validateFIO(FIO) &&
             validateWallet(wallet)
         ) {
+            submit();
+        } else {
+            setSnackbarMessage('Please fill in all fields correctly.');
+            setShowSnackbar(true);
+            setTimeout(() => {
+                setShowSnackbar(false);
+                setSnackbarMessage('');
+            }, 5000);
+        }
+    };
+    const validate = () => {
+        if (
+            currencyFromValue !== '' ||
+            amountFromValue !== '' ||
+            currencyToValue !== ''
+        ) {
+            console.log('submit')
             submit();
         } else {
             setSnackbarMessage('Please fill in all fields correctly.');
@@ -143,10 +164,27 @@ export const Converter = () => {
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
                         >
-                            <MenuItem value="BTC">BTC</MenuItem>
-                            <MenuItem value="ETH">ETH</MenuItem>
-                            <MenuItem value="USD">USD</MenuItem>
-                            <MenuItem value="EUR">EUR</MenuItem>
+                            <MenuItem value="ALGO">Algorand</MenuItem>
+                            <MenuItem value="BTC">Bitcoin</MenuItem>
+                            <MenuItem value="BTG">Bitcoin gold</MenuItem>
+                            <MenuItem value="ADA">Cardano</MenuItem>
+                            <MenuItem value="DASH">Dash</MenuItem>
+                            <MenuItem value="DGB">Digibyte</MenuItem>
+                            <MenuItem value="DOGE">Dogecoin</MenuItem>
+                            <MenuItem value="ETH">Ethereum</MenuItem>
+                            <MenuItem value="LTC">Litecoin</MenuItem>
+                            <MenuItem value="XMR">Monero</MenuItem>
+                            <MenuItem value="MATIC">Polygon</MenuItem>
+                            <MenuItem value="RVN">Ravencoin</MenuItem>
+                            <MenuItem value="XRP">Ripple</MenuItem>
+                            <MenuItem value="SOL">Solana</MenuItem>
+                            <MenuItem value="XLM">Stellar</MenuItem>
+                            <MenuItem value="USDT">Tether</MenuItem>
+                            <MenuItem value="XTZ">Tezos</MenuItem>
+                            <MenuItem value="TRX">Tron</MenuItem>
+                            <MenuItem value="VET">VeChain</MenuItem>
+                            <MenuItem value="ZEC">Zcash</MenuItem>
+
                         </Select>
                     </FormControl>
                     <TextField
@@ -192,6 +230,8 @@ export const Converter = () => {
                             <MenuItem value="ETH">ETH</MenuItem>
                             <MenuItem value="USD">USD</MenuItem>
                             <MenuItem value="EUR">EUR</MenuItem>
+                            <MenuItem value="SOL">SOL</MenuItem>
+
                         </Select>
                     </FormControl>
 
@@ -224,9 +264,11 @@ export const Converter = () => {
                         При нажатии на кнопку "Обменять" Вы соглашаетесь c{' '}
                         <a href="#">пользовательским соглашением</a> нашего ресурса
                     </div>
-                    <Button className="form-btn" variant="contained" onClick={validate}>
-                        Обменять
-                    </Button>
+                    <div className="form-btn-container">
+                        <Button className="form-btn" variant="contained" onClick={confirm}>
+                            Обменять
+                        </Button>
+                    </div>
                 </div>
             </form>
             <Snackbar open={showSnackbar} autoHideDuration={5000} onClose={handleCloseSnackbar}>
