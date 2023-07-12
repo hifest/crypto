@@ -55,8 +55,8 @@ const LogInPage = () => {
                     target="_blank" rel="noopener noreferrer" href="https://policies.google.com/terms?hl=en">Terms</a>
             </p>
             {error ? <p className="red tac">Не правильний логин или пароль</p>  : null}
-            <button className="register__button" type='submit'>Войти</button>
-            <a className="register__button" onClick={()=>{setModalActive(true)}}>Востановить пароль</a>
+            <button className="btn_reg" type='submit'>Войти</button>
+            <a className="btn_reg" onClick={()=>{setModalActive(true)}}>Востановить пароль</a>
             <p className="tac">
                 Нет аккаунта?
                 <Link to="/register">Регистрация</Link>
@@ -67,7 +67,7 @@ const LogInPage = () => {
                     <input type="input" className="form__field"  min={5} max={50} placeholder="Email" value={email} onChange={(e)=> setEmail(e.target.value)} required/>
                     <label htmlFor="name" className="form__label">Email</label>
                 </div>
-                <button className="register__button m2auto" onClick={ResetPassword}>Востановить пароль</button>
+                <button className="btn_reg m2auto" onClick={ResetPassword}>Востановить пароль</button>
                 {modalInfo ? <p className="red tac">{modalInfo}</p> : null}
             </Modal>
         </>

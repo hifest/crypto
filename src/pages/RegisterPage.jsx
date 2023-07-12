@@ -58,7 +58,7 @@ const RegisterPage = () => {
                 <a href="https://policies.google.com/privacy?hl=en" target="_blank" rel="noopener noreferrer" className="register__firstChild">Privacy</a><a
                 target="_blank" rel="noopener noreferrer" href="https://policies.google.com/terms?hl=en">Terms</a>
             </p>
-            <button className="register__button" type="submit">Зарегистрироваться</button>
+            <button className="btn_reg" type="submit">Зарегистрироваться</button>
 
             <p className="tac">
                 Уже есть аккаунт?

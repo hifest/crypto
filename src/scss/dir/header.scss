@@ -1,0 +1,39 @@
+.header{
+  max-width: 100%;
+  padding: 0 20px 30px 20px;
+  margin-bottom: 20px;
+  height: 50px;
+  background-color: #BBE1FA;
+  &__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__logo{
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    transition: .3s;
+    &:hover{
+      color: #4b4b4b;
+    }
+  }
+  &__info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    a{
+      margin-right: 15px;
+    }
+    &:last-child{
+      margin-right: 0 !important;
+    }
+  }
+  &__btn{
+    max-width: 400px;
+    display: flex;
+    button{
+      margin: 0;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+.btn_reg{
+  margin: 20px 0 20px 0;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding: 17px 28px;
+  box-sizing: border-box;
+  max-height: 56px;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease 0s;
+  position: relative;
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  background: #0F4C75;
+
+  &:hover {
+    background: #14639a;
+  }
+}

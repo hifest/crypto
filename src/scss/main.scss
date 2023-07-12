@@ -3,7 +3,9 @@
 @import "./dir/register";
 @import "./mainPage";
 @import "./dir/modal";
-
+@import "./dir/header";
+@import "./dir/btn";
+@import "./dir/a";
 *{
   font-family: 'Montserrat', sans-serif;
 }
@@ -22,8 +24,13 @@ input:-webkit-autofill:active  {
     margin-left: 15px;
   }
 }
-.red{
+.red {
   font-size: 20px;
   font-weight: bold;
   color: #a61111;
 }
+.container {
+    max-width: 1470px;
+    margin: 0 auto;
+  }
+
