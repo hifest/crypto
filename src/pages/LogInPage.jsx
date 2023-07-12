@@ -67,7 +67,7 @@ const LogInPage = () => {
                     <input type="input" className="form__field"  min={5} max={50} placeholder="Email" value={email} onChange={(e)=> setEmail(e.target.value)} required/>
                     <label htmlFor="name" className="form__label">Email</label>
                 </div>
-                <button className="register__button" onClick={ResetPassword}>Востановить пароль</button>
+                <button className="register__button m2auto" onClick={ResetPassword}>Востановить пароль</button>
                 {modalInfo ? <p className="red tac">{modalInfo}</p> : null}
             </Modal>
         </>

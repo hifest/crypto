@@ -132,7 +132,6 @@ $gray: #9b9b9b;
 .form__field{
   &:required,&:invalid { box-shadow:none; }
 }
-/* demo */
-.reset_password{
-
+.m2auto{
+  margin: 20px auto !important;
 }
