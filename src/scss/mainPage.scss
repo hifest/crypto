@@ -1,0 +1,51 @@
+.form-currency {
+  width: 400px;
+  height: 500px;
+  background: #ffffff;
+  border-radius: 10px;
+}
+.form {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  &-title {
+    font-size: 33px;
+    margin: 30px 0 30px 40px;
+    font-weight: 900;
+  }
+  &-currency {
+    display: flex;
+    flex-direction: column;
+  }
+  &-subtext {
+    font-size: 10px;
+    color: gray;
+    line-height: 15px;
+    margin: 0 40px 0 40px !important;
+  }
+}
+.MuiFormControl-root {
+  margin: 0 40px 0 40px !important;
+}
+.input-form {
+  margin-bottom: 12px!important;
+}
+.form-email {
+  margin: 80px 40px 50px 40px!important;
+}
+.form-fio {
+  margin: 80px 40px 0 40px!important;
+}
+.output {
+  color: #000 ;
+}
+.subtext {
+  padding: 20px 0 20px 0;
+}
+.form-currency {
+  width: 400px;
+  height: 500px;
+  background: #ffffff;
+  border-radius: 10px;
+}
+
