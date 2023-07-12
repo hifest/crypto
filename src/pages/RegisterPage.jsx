@@ -6,55 +6,53 @@ import { getDatabase, ref, set } from "firebase/database";
 import uuid4 from "uuid4";
 
 const RegisterPage = () => {
-
-    const database = getDatabase();
     const [email, setEmail] = useState("");
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
-    const [repeatPassword, setRepeatPassword] = useState("");
-
     const regUser = (e) => {
         e.preventDefault()
         setEmail('')
         setLogin('')
         setPassword('')
-        setRepeatPassword('')
+
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
-
                 const userId = uuid4()
                 const db = getDatabase();
+
                 set(ref(db, 'users/' + userId), {
                     login: login,
                     email: email,
-                });
-                window.location.replace('/')
+                    userID: user.uid
+                }).then(window.location.replace('/'));
+
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
-            });
 
     }
     return (
         <form className="register" onSubmit={regUser}>
             <h2 className="register__header">Регистрация</h2>
 
-            <div className="register__field">
-                <input type="email" placeholder="Email" autoComplete="off" value={email} onChange={(e)=> setEmail(e.target.value)}/>
+
+            <div className="form__group field">
+                <input type="email" className="form__field" placeholder="Email" min={5} max={50} value={email} onChange={(e)=> setEmail(e.target.value)}  required  autoComplete="off"/>
+                <label htmlFor="name" className="form__label">Email</label>
             </div>
-            <div className="register__field">
-                <input type="text" placeholder="Логин" autoComplete="off" value={login} onChange={(e)=> setLogin(e.target.value)}/>
+
+
+            <div className="form__group field">
+                <input type="input" className="form__field" placeholder="Логин" min={2} max={50} value={login} onChange={(e)=> setLogin(e.target.value)} required  autoComplete="off"/>
+                <label htmlFor="name" className="form__label">Логин</label>
             </div>
-            <div className="register__field">
-                <input type="password" placeholder="Пароль" autoComplete="off" value={password} onChange={(e)=> setPassword(e.target.value)}/>
+
+
+            <div className="form__group field">
+                <input type="password" className="form__field" placeholder="Пароль" min={10} max={50} value={password} onChange={(e)=> setPassword(e.target.value)} required  autoComplete="off"/>
+                <label htmlFor="name" className="form__label">Пароль</label>
             </div>
-            <div className="register__field">
-                <input type="password" placeholder="Повторите пароль" autoComplete="off" value={repeatPassword} onChange={(e)=> setRepeatPassword(e.target.value)}/>
-            </div>
+
 
             <p className="register__terms">protected by reCAPTCHA
                 <a href="https://policies.google.com/privacy?hl=en" target="_blank" rel="noopener noreferrer" className="register__firstChild">Privacy</a><a

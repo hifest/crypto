@@ -43,32 +43,6 @@
     letter-spacing: .1px;
     margin-bottom: 36px;
   }
-  &__field{
-    position: relative;
-    width: 100%;
-    font-size: 18px;
-    font-weight: 500;
-    padding: 16px 0;
-    input{
-      background-color: inherit;
-      appearance: none;
-      width: 100%;
-      padding-bottom: 8px;
-      outline: none;
-      font-size: 17px;
-      font-weight: 400;
-      border-radius: 0;
-      border-top: none;
-      color: #0F4C75;
-      border-right: none;
-      border-left: none;
-      border-image: initial;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.34);
-      &::placeholder{
-        color: #0F4C75;
-      }
-    }
-    }
   &__terms{
     text-align: center;
     font-weight: lighter;
@@ -95,3 +69,70 @@
   }
   }
 
+$primary: #11998e;
+$secondary: #38ef7d;
+$white: #fff;
+$gray: #9b9b9b;
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #0F4C75;
+  outline: 0;
+  font-size: 1.1rem;
+  color: #1B262C;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .form__label {
+    font-size: 1.1rem;
+    cursor: text;
+    top: 20px;
+  }
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: $gray;
+}
+
+.form__field:focus {
+  ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #1B262C;
+    font-weight:700;
+  }
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #1B262C,#3282B8);
+  border-image-slice: 1;
+}
+/* reset input */
+.form__field{
+  &:required,&:invalid { box-shadow:none; }
+}
+/* demo */
+.reset_password{
+
+}

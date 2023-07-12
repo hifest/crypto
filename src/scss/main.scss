@@ -2,6 +2,7 @@
 @import "./normalize/normalize";
 @import "./dir/register";
 @import "./mainPage";
+@import "./dir/modal";
 
 *{
   font-family: 'Montserrat', sans-serif;
@@ -20,4 +21,9 @@ input:-webkit-autofill:active  {
   a{
     margin-left: 15px;
   }
+}
+.red{
+  font-size: 20px;
+  font-weight: bold;
+  color: #a61111;
 }
