@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 const FAQ = () => {
     const [openAccordion, setOpenAccordion] = React.useState(null);
 
+
     return (
     <div className="scrollable-container more-height">
         <div className="scrollable-content">

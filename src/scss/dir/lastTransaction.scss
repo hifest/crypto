@@ -1,0 +1,35 @@
+.trans {
+  width: 50%;
+  height: 45vh;
+  overflow: auto;
+  background: white;
+  border: 1px solid #ccc;
+  margin: 30px auto;
+  border-radius: 5px;
+  padding: 10px;
+  -webkit-box-shadow: 10px 10px 25px 0px rgba(219, 219, 219, 1);
+  -moz-box-shadow: 10px 10px 25px 0px rgba(219, 219, 219, 1);
+  box-shadow: 10px 10px 25px 0px rgba(219, 219, 219, 1);
+
+  &__content {
+    padding: 10px;
+  }
+  &__h2{
+    font-size: 2.3em;
+  }
+  &__info{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bolder;
+    color: #1d9ce8;
+  }
+  &__box{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 15px;
+  }
+}
+.mr-20{
+  margin-right: 100px;
+}
