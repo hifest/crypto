@@ -8,11 +8,6 @@
   display: flex;
   flex-direction: row;
   gap: 40px;
-  position: absolute;
-  transform: translate(-50%,-50%);
-  top: 50%;
-  left: 50%;
-
   &-title {
     font-size: 33px;
     margin: 30px 0 30px 40px;
@@ -28,7 +23,65 @@
     line-height: 15px;
     margin: 0 40px 0 40px !important;
   }
+  &-form {
+    min-width: 700px!important;
+    height: 500px;
+  }
+  &-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 80%;
+    margin: 0 auto;
+  }
+  &-grids {
+    align-self: flex-end;
+    padding: 10px;
+  }
+  &-gridbox {
+    display: flex;
+    align-items: center;
+    border-top: none;
+    border-right: 1px solid grey;
+    border-bottom: 1px solid grey;
+  }
 }
+.modal {
+  &-subtext {
+    display: grid;
+    justify-content: center;
+    padding: 20px 0 30px 0;
+  }
+  &-btn {
+  }
+  &-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+  &-id {
+    display: flex;
+    justify-content: center;
+  }
+}
+.tp {
+  border-top: 1px solid grey;
+}
+.lf {
+  border-left: 1px solid grey;
+}
+.first {
+  justify-content: flex-end;
+}
+.fw {
+  font-weight: 900;
+}
+.bl {
+  color: blue;
+}
+.gr {
+  color: green;
+}
+
 .MuiFormControl-root {
   margin: 0 40px 0 40px !important;
 }
