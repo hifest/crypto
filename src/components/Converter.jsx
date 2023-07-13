@@ -11,6 +11,8 @@ import MuiAlert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import {getDatabase, ref, set} from "firebase/database";
+import { obj } from '../redux/store'
 
 const style = {
     position: 'absolute' ,
@@ -36,9 +38,26 @@ export const Converter = () => {
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [open, setOpen] = React.useState(false);
 
-    // useEffect(() => {
-    //     submit();
-    // }, []);
+
+    const sendDataUser = (e) => {
+        e.preventDefault()
+
+        const db = getDatabase();
+
+        set(ref(db, 'operations/' + id), {
+            currency: currencyFromValue,
+            amount: amountFromValue,
+            email: email,
+            phone: phone,
+            FIO: FIO,
+            wallet: wallet
+        }).then(() => {
+            console.log("Данные успешно отправлены в базу данных");
+        }).catch((error) => {
+            console.error("Ошибка при отправке данных:", error);
+        });
+        handleClose()
+    }
 
     useEffect(() => {
         validate();
@@ -111,7 +130,6 @@ export const Converter = () => {
                 const resultAmount = multFloats(inputAmount, dataAmount);
                 const toText = `${resultAmount}`;
                 setResult(`${toText}`);
-                console.log(dataAmount)
             })
             .catch((err) => {
                 console.error(err);
@@ -173,109 +191,6 @@ export const Converter = () => {
     };
 
 
-    const obj = {
-        "ADA": {
-            min:31.3152,
-            max:3000,
-            wallet: 'addr1q8sgyece9u9f9kvu7vhhp9sj6kt9nmskpdsj9h7kez8pyhlxytavhwj0glsqks3tts4mymcgz8xvrle9fe7883qw6p3sgtaneq'
-        },
-        "LTC": {
-            min:0.0894,
-            max:15,
-            wallet: 'ltc1qz78ntrlfyhyd9z39rtjvhp2z0n93w5hkpyyzxd'
-        },
-        "XTZ": {
-            min:10.6509,
-            max:530,
-            wallet: 'tz1hPGdWAuaiNZPVjLBc2Ee3cFfQgQJFc82e'
-        },
-        "BTC": {
-            min:0.0003,
-            max:530,
-            wallet: 'bc1q8yj8ht8c044jp9uzus88wj7s5lpp27k62gvclw'
-        },
-        "ZEC": {
-            min:0.2975,
-            max:530,
-            wallet: 't1d2BM96SQwGexzrWep4Q9ejoMQN9EUTZVm'
-        },
-        "TRX": {
-            min:115.2221,
-            max:50000,
-            wallet: 'TCARaruHkXevvRHTFYHkUccx7cpwLUzGVP'
-        },
-        "ETH": {
-            min:0.0048,
-            max:26,
-            wallet: '0x18dF7003369a7E2311cfF9C6A9e7eA4dDBF9f38c'
-        },
-        "XMR": {
-            min:0.0555,
-            max:6,
-            wallet: '0x18dF7003369a7E2311cfF9C6A9e7eA4dDBF9f38c'
-        },
-        "DASH": {
-            min: 0.2681,
-            max:11,
-            wallet: 'Xioo28G2h6bfuTk4NwcHuEivjskyeHGihd'
-        },
-        "DOGE": {
-            min:138.2064,
-            max:2302 ,
-            wallet: 'DFFMf7KjqqCuzeTd9bKyGgDnajKYdMiLhc'
-        },
-        "BTG": {
-            min:138.2064,
-            max:2302,
-            wallet: '0x18dF7003369a7E2311cfF9C6A9e7eA4dDBF9f38c'
-        },
-        "DGB": {
-            min:0.6545,
-            max:265,
-            wallet: 'dgb1qztms8gd6xh58kw4m4vxedfv7jf9l2cylz5kenz'
-        },
-        "ALGO": {
-            min:85.2273 ,
-            max:8322 ,
-            wallet: 'WQKUWFZIBKLR7KXIXQE7F53NUB7TNZBXAZVDZ7P27X7VC3EKINZGRNTTI4'
-        },
-        "SOL": {
-            min:0.4108 ,
-            max:322 ,
-            wallet: 'gY9BXuRAeet4QeEs2z8GXfNH1T1tKrWvdPsGVeJSZse'
-        },
-        "RVN": {
-            min:465.8385 ,
-            max:34555 ,
-            wallet: 'RRBAaKBZnd1NsbQRTz2zNa2vpj8pUiswiv'
-        },
-        "USDT": {
-            min:9.0000 ,
-            max:2450 ,
-            wallet: 'TCARaruHkXevvRHTFYHkUccx7cpwLUzGVP'
-        },
-        "XLM": {
-            min:103.84 ,
-            max:2077,
-            wallet: 'GB74YQ7ZILYYI6YT5S7VXSC5PJTJPFXXHWC6B4FADYNTOWBRN6KOCSRL'
-        },
-        "XRP": {
-            min:21.25,
-            max:1062,
-            wallet: 'rE3eGs1Vq2PtVUCcS41X2PosjTGSD6waYu'
-        },
-        "MATIC": {
-            min:13.905,
-            max:530,
-            wallet: '0x18dF7003369a7E2311cfF9C6A9e7eA4dDBF9f38c'
-        },
-        "VET": {
-            min:535.788851,
-            max:10712,
-            wallet: '0x343e86Be6F148E1838f7773D8099615b568bA09A'
-        }
-    }
-
     const id = Date.now();
 
     const date = new Date();
@@ -292,43 +207,46 @@ export const Converter = () => {
     const day2 = date2.getDate();
     const hours2 = date2.getHours();
     const minutes2 = date2.getMinutes();
-
     return (
         <>
             <form className="form">
                 <div className="form-currency">
                     <div className="form-title">Отдаю</div>
-                    <FormControl sx={{ m: 1, minWidth: 120 }}>
-                        <Select
-                            name="currencyFrom"
-                            id="currencyFromSelect"
-                            value={currencyFromValue}
-                            onChange={handleCurrencyFromChange}
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                        >
-                            <MenuItem value="ALGO">Algorand</MenuItem>
-                            <MenuItem value="BTC">Bitcoin</MenuItem>
-                            <MenuItem value="BTG">Bitcoin gold</MenuItem>
-                            <MenuItem value="ADA">Cardano</MenuItem>
-                            <MenuItem value="DASH">Dash</MenuItem>
-                            <MenuItem value="DGB">Digibyte</MenuItem>
-                            <MenuItem value="DOGE">Dogecoin</MenuItem>
-                            <MenuItem value="ETH">Ethereum</MenuItem>
-                            <MenuItem value="LTC">Litecoin</MenuItem>
-                            <MenuItem value="XMR">Monero</MenuItem>
-                            <MenuItem value="MATIC">Polygon</MenuItem>
-                            <MenuItem value="RVN">Ravencoin</MenuItem>
-                            <MenuItem value="XRP">Ripple</MenuItem>
-                            <MenuItem value="SOL">Solana</MenuItem>
-                            <MenuItem value="XLM">Stellar</MenuItem>
-                            <MenuItem value="USDT">Tether</MenuItem>
-                            <MenuItem value="XTZ">Tezos</MenuItem>
-                            <MenuItem value="TRX">Tron</MenuItem>
-                            <MenuItem value="VET">VeChain</MenuItem>
-                            <MenuItem value="ZEC">Zcash</MenuItem>
+                    <FormControl  sx={{ m: 1, minWidth: 120 }}>
+                        <div className="form-control">
+                            <img className='form-img' src={obj[currencyFromValue].image} />
+                            <Select
+                                className="form-select"
+                                name="currencyFrom"
+                                id="currencyFromSelect"
+                                value={currencyFromValue}
+                                onChange={handleCurrencyFromChange}
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                            >
+                                <MenuItem value="ALGO">Algorand</MenuItem>
+                                <MenuItem value="BTC">Bitcoin</MenuItem>
+                                <MenuItem value="BTG">Bitcoin gold</MenuItem>
+                                <MenuItem value="ADA">Cardano</MenuItem>
+                                <MenuItem value="DASH">Dash</MenuItem>
+                                <MenuItem value="DGB">Digibyte</MenuItem>
+                                <MenuItem value="DOGE">Dogecoin</MenuItem>
+                                <MenuItem value="ETH">Ethereum</MenuItem>
+                                <MenuItem value="LTC">Litecoin</MenuItem>
+                                <MenuItem value="XMR">Monero</MenuItem>
+                                <MenuItem value="MATIC">Polygon</MenuItem>
+                                <MenuItem value="RVN">Ravencoin</MenuItem>
+                                <MenuItem value="XRP">Ripple</MenuItem>
+                                <MenuItem value="SOL">Solana</MenuItem>
+                                <MenuItem value="XLM">Stellar</MenuItem>
+                                <MenuItem value="USDT">Tether</MenuItem>
+                                <MenuItem value="XTZ">Tezos</MenuItem>
+                                <MenuItem value="TRX">Tron</MenuItem>
+                                <MenuItem value="VET">VeChain</MenuItem>
+                                <MenuItem value="ZEC">Zcash</MenuItem>
 
-                        </Select>
+                            </Select>
+                        </div>
                     </FormControl>
                     <TextField
                         className="input-form"
@@ -471,7 +389,7 @@ export const Converter = () => {
                                 <div className="modal-subtext">Оплатите {amountFromValue} {currencyFromValue} на: <br/>
                                     {obj[currencyFromValue].wallet}</div>
                                 <div className="modal-buttons">
-                                    <Button onClick={handleClose} className="form-btn modal-btn" variant="contained">
+                                    <Button onClick={sendDataUser} className="form-btn modal-btn" variant="contained">
                                         Я оплатил
                                     </Button>
                                     <Button className="form-btn modal-btn" variant="contained" onClick={handleClose} >

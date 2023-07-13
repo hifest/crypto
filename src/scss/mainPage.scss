@@ -17,6 +17,7 @@
   &-currency {
     display: flex;
     flex-direction: column;
+    box-shadow: 10px 10px 25px 0px rgba(219, 219, 219, 0.3);
   }
   &-subtext {
     font-size: 10px;
@@ -44,6 +45,17 @@
     border-top: none;
     border-right: 1px solid grey;
     border-bottom: 1px solid grey;
+  }
+  &-control {
+    display: flex;
+    flex-direction: row;
+  }
+  &-img {
+    width: 12%;
+    padding-right: 10px;
+  }
+  &-select {
+    width: 85%;
   }
 }
 .modal {
