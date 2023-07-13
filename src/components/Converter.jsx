@@ -62,7 +62,7 @@ export const Converter = () => {
             handleOpen()
             submit()
         } else {
-            setSnackbarMessage('Please fill in all fields correctly.');
+            setSnackbarMessage('Пожалуйста, заполните все поля правильно.');
             setShowSnackbar(true);
             setTimeout(() => {
                 setShowSnackbar(false);
@@ -78,7 +78,7 @@ export const Converter = () => {
         ) {
             submit();
         } else {
-            setSnackbarMessage('Please fill in all fields correctly.');
+            setSnackbarMessage('Пожалуйста, заполните все поля правильно.');
             setShowSnackbar(true);
             setTimeout(() => {
                 setShowSnackbar(false);
@@ -111,6 +111,7 @@ export const Converter = () => {
                 const resultAmount = multFloats(inputAmount, dataAmount);
                 const toText = `${resultAmount}`;
                 setResult(`${toText}`);
+                console.log(dataAmount)
             })
             .catch((err) => {
                 console.error(err);
@@ -146,13 +147,14 @@ export const Converter = () => {
     };
 
     const validateEmail = (email) => {
-        // Add your email validation logic here
+        var re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+        return re.test(String(email).toLowerCase());
         return email !== '';
     };
 
     const validatePhone = (phone) => {
-        // Add your phone validation logic here
-        return phone !== '';
+
+        return phone !== '' && phone.length > 6;
     };
 
     const validateFIO = (FIO) => {
@@ -170,12 +172,6 @@ export const Converter = () => {
         setSnackbarMessage('');
     };
 
-        const currencyIf = () => {
-            if (currencyFromValue === 'BTC') {
-                return obj[currencyFromValue].wallet;
-
-            }
-        }
 
     const obj = {
         "ADA": {
@@ -342,8 +338,7 @@ export const Converter = () => {
                         value={amountFromValue}
                         onChange={handleAmountFromChange}
                     />
-                    <div className="form-subtext">Min: 0.0003 Max: 530 BTC</div>
-                    <div className="form-subtext">1 BTC = 16.26857085 ETH</div>
+                    <div className="form-subtext">Min: {obj[currencyFromValue].min} Max: {obj[currencyFromValue].max} {currencyFromValue}</div>
                     <TextField
                         className="form-email"
                         id="email"
@@ -416,7 +411,7 @@ export const Converter = () => {
                     />
                     <TextField
                         id="wallet"
-                        label="Кошелек"
+                        label={"Кошелек " + currencyToValue}
                         variant="standard"
                         type="text"
                         value={wallet}
@@ -474,7 +469,7 @@ export const Converter = () => {
                                 </div>
                                 </div>
                                 <div className="modal-subtext">Оплатите {amountFromValue} {currencyFromValue} на: <br/>
-                                    {currencyIf()}</div>
+                                    {obj[currencyFromValue].wallet}</div>
                                 <div className="modal-buttons">
                                     <Button onClick={handleClose} className="form-btn modal-btn" variant="contained">
                                         Я оплатил
