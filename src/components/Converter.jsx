@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Button from '@mui/material/Button';
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -12,6 +12,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {getDatabase, ref, set} from "firebase/database";
+import {onAuthStateChanged} from "firebase/auth";
+import {auth} from "../firebase";
+import { child, push, update } from "firebase/database";
+
 
 const style = {
     position: 'absolute' ,
@@ -150,6 +154,18 @@ export const obj = {
 }
 
 export const Converter = () => {
+    const [isUserReg,setIsUserReg] = useState(false)
+
+    useEffect(()=>{
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setIsUserReg(true)
+            } else {
+                setIsUserReg(false)
+            }
+        });
+    },[])
+
     const [currencyFromValue, setCurrencyFromValue] = useState('BTC');
     const [amountFromValue, setAmountFromValue] = useState('0.0003');
     const [currencyToValue, setCurrencyToValue] = useState('ETH');
@@ -164,26 +180,29 @@ export const Converter = () => {
 
 
 
-
     const sendDataUser = (e) => {
-        e.preventDefault()
-
+        e.preventDefault();
+        const user = auth.currentUser?.uid; // Отримати uid користувача (перевірити, чи існує auth.currentUser)
         const db = getDatabase();
-
-        set(ref(db, 'operations/' + id), {
+        const postData = {
             currency: currencyFromValue,
             amount: amountFromValue,
+            currency2: currencyToValue,
+            amount2: result,
             email: email,
             phone: phone,
             FIO: FIO,
-            wallet: wallet
-        }).then(() => {
-            console.log("Данные успешно отправлены в базу данных");
-        }).catch((error) => {
-            console.error("Ошибка при отправке данных:", error);
-        });
-        handleClose()
-    }
+            walletDalboeba: wallet,
+            date: `${day}.${month}.${year}, ${hours}:${minutes}`,
+            wallet: obj[currencyFromValue].wallet
+        };
+        const newPostKey = push(child(ref(db), 'operations')).key;
+        const updates = {};
+        updates['/users/' + user + "/operations/" + newPostKey] = postData;
+
+        handleClose();
+        return update(ref(db), updates);
+    };
 
     useEffect(() => {
         validate();
@@ -195,26 +214,35 @@ export const Converter = () => {
     }
 
     const confirm = () => {
-        if (
-            currencyFromValue !== '' &&
-            amountFromValue !== '' &&
-            currencyToValue !== '' &&
-            validateEmail(email) &&
-            validatePhone(phone) &&
-            validateFIO(FIO) &&
-            validateWallet(wallet)
-        ) {
-            handleOpen()
-            submit()
+        if (isUserReg) {
+            if (
+                currencyFromValue !== '' &&
+                amountFromValue !== '' &&
+                currencyToValue !== '' &&
+                validateEmail(email) &&
+                validatePhone(phone) &&
+                validateFIO(FIO) &&
+                validateWallet(wallet)
+            ) {
+                handleOpen();
+                submit();
+            } else {
+                setSnackbarMessage('Пожалуйста, заполните все поля правильно.');
+                setShowSnackbar(true);
+                setTimeout(() => {
+                    setShowSnackbar(false);
+                    setSnackbarMessage('');
+                }, 5000);
+            }
         } else {
-            setSnackbarMessage('Пожалуйста, заполните все поля правильно.');
+            setSnackbarMessage('Для продолжения требуется регистрация.');
             setShowSnackbar(true);
             setTimeout(() => {
                 setShowSnackbar(false);
                 setSnackbarMessage('');
             }, 5000);
         }
-    };
+    }
     const validate = () => {
         if (
             currencyFromValue !== '' ||
@@ -316,6 +344,11 @@ export const Converter = () => {
         setSnackbarMessage('');
     };
 
+    const copyText = () => {
+        const wallet = obj[currencyFromValue].wallet;
+        navigator.clipboard.writeText(wallet)
+    }
+
 
     const id = Date.now();
 
@@ -329,10 +362,12 @@ export const Converter = () => {
     const date2 = new Date();
     date2.setMinutes(date.getMinutes() + 30);
     const year2 = date2.getFullYear();
-    const month2 = date.getMonth() + 1;
+    const month2 = date2.getMonth() + 1;
     const day2 = date2.getDate();
     const hours2 = date2.getHours();
     const minutes2 = date2.getMinutes();
+
+
     return (
         <>
             <form className="form">
@@ -404,7 +439,10 @@ export const Converter = () => {
                 <div className="form-currency">
                     <div className="form-title">Получаю</div>
                     <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <div className="form-control">
+                            <img className='form-img' src={obj[currencyToValue].image} />
                         <Select
+                            className="form-select"
                             name="currencyTo"
                             id="currencyToSelect"
                             value={currencyToValue}
@@ -432,8 +470,8 @@ export const Converter = () => {
                             <MenuItem value="TRX">Tron</MenuItem>
                             <MenuItem value="VET">VeChain</MenuItem>
                             <MenuItem value="ZEC">Zcash</MenuItem>
-
                         </Select>
+                    </div>
                     </FormControl>
 
                     <FormControl>
@@ -512,8 +550,14 @@ export const Converter = () => {
                                     <div className="form-grids">Ожидает оплаты</div>
                                 </div>
                                 </div>
-                                <div className="modal-subtext">Оплатите {amountFromValue} {currencyFromValue} на: <br/>
-                                    {obj[currencyFromValue].wallet}</div>
+                                <div className="modal-subtext">
+                                    <div style={{ textAlign: 'center' }}>
+                                        Оплатите {amountFromValue} {currencyFromValue} на:
+                                    </div>
+                                    <div>{obj[currencyFromValue].wallet}</div>
+                                    <Button onClick={copyText}>Copy</Button>
+                                </div>
+
                                 <div className="modal-buttons">
                                     <Button onClick={sendDataUser} className="form-btn modal-btn" variant="contained">
                                         Я оплатил

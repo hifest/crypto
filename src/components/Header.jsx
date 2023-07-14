@@ -3,6 +3,10 @@ import {auth} from "../firebase"
 import {useEffect} from "react";
 import {onAuthStateChanged, signOut} from "firebase/auth";
 import { Link } from "react-router-dom";
+
+
+
+export const UserContext = React.createContext()
 const Header = () => {
     const [isUserReg,setIsUserReg] = useState(false)
 
@@ -23,6 +27,7 @@ const Header = () => {
     }
 
     return (
+        <UserContext.Provider value={{ isUserReg, setIsUserReg }}>
         <div className="header">
             <div className="header__container">
                 <Link to="/" className="header__logo">
@@ -46,6 +51,7 @@ const Header = () => {
                 </nav>
             </div>
         </div>
+        </UserContext.Provider>
     );
 
 };
