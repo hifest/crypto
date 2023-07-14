@@ -32,11 +32,11 @@ const Header = () => {
                 </Link>
                 <div className="header__info">
                     <Link to="/" className="header_link">Обменять</Link>
-                    <Link to="/" className="header_link">Резервы</Link>
+                    <Link to="/reserves" className="header_link">Резервы</Link>
                     <Link to="/partners" className="header_link">Партнерам</Link>
                     <Link to="/FAQ" className="header_link">FAQ</Link>
                     <Link to="/" className="header_link">История</Link>
-                    <Link to="/" className="header_link">Тех. поддержка</Link>
+                    <Link to="https://t.me/maestro41L" className="header_link">Тех. поддержка</Link>
                 </div>
                 <nav className="header__btn">
                     {isUserReg ? <button className="btn_reg" onClick={Exit}>Выйти</button> :

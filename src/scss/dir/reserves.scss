@@ -1,0 +1,18 @@
+.reserves{
+  display: flex;
+  margin-top: 30px;
+  color: white;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  &__img{
+    img{
+      max-height: 50px;
+    }
+  }
+  &__h1{
+    color: white;
+    font-size: 40px;
+  }
+}

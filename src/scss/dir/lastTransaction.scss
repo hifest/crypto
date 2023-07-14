@@ -1,5 +1,5 @@
 .trans {
-  width: 50%;
+  width: 60%;
   height: 45vh;
   overflow: auto;
   background: white;
@@ -28,8 +28,21 @@
     justify-content: space-between;
     margin-bottom: 20px;
     font-size: 15px;
+    align-items: center;
+    align-content: center;
   }
 }
 .mr-20{
-  margin-right: 100px;
+  max-width: 236px;
+  display: flex;
+  align-items: center;
+    img{
+    width: 10%;
+    }
+  span{
+    margin: 0 15px 0 15px;
+  }
+}
+.secondimg{
+  margin-right: 15px;
 }
