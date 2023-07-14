@@ -19,9 +19,7 @@ const Header = () => {
     const Exit = () =>{
         signOut(auth).then(() => {
             window.location.replace('/register')
-        }).catch((error) => {
-            // An error happened.
-        });
+        })
     }
 
     return (

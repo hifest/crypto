@@ -3,7 +3,6 @@ import {createUserWithEmailAndPassword } from "firebase/auth";
 import {auth} from "../firebase"
 import { Link } from "react-router-dom";
 import { getDatabase, ref, set } from "firebase/database";
-import uuid4 from "uuid4";
 
 const RegisterPage = () => {
     const [email, setEmail] = useState("");
@@ -19,15 +18,16 @@ const RegisterPage = () => {
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
-                const userId = uuid4()
-                const db = getDatabase();
 
-                set(ref(db, 'users/' + userId), {
+
+                const db = getDatabase();
+                set(ref(db, 'users/' + user.uid), {
                     login: login,
                     email: email,
                     userID: user.uid
-                }).then(window.location.replace('/'));
-
+                }).then(()=>{
+                    window.location.replace('/')
+                })
             })
 
     }
