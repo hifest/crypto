@@ -155,17 +155,6 @@ export const obj = {
 
 export const Converter = () => {
     const [isUserReg,setIsUserReg] = useState(false)
-
-    useEffect(()=>{
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setIsUserReg(true)
-            } else {
-                setIsUserReg(false)
-            }
-        });
-    },[])
-
     const [currencyFromValue, setCurrencyFromValue] = useState('BTC');
     const [amountFromValue, setAmountFromValue] = useState('0.0003');
     const [currencyToValue, setCurrencyToValue] = useState('ETH');
@@ -178,6 +167,18 @@ export const Converter = () => {
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [open, setOpen] = React.useState(false);
     const [id,setId] = useState(Date.now())
+
+    useEffect(()=>{
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setIsUserReg(true)
+            } else {
+                setIsUserReg(false)
+            }
+        });
+    },[])
+
+
 
     const sendDataUser = (e) => {
         e.preventDefault();
@@ -222,19 +223,28 @@ export const Converter = () => {
     }
     const confirm = () => {
         if (isUserReg) {
-            if (
-                currencyFromValue !== '' &&
-                amountFromValue !== '' &&
-                currencyToValue !== '' &&
-                validateEmail(email) &&
-                validatePhone(phone) &&
-                validateFIO(FIO) &&
-                validateWallet(wallet)
-            ) {
-                handleOpen();
-                submit();
+            if (amountFromValue >= obj[currencyFromValue].min && amountFromValue <= obj[currencyFromValue].max) {
+                if (
+                    currencyFromValue !== '' &&
+                    amountFromValue !== '' &&
+                    currencyToValue !== '' &&
+                    validateEmail(email) &&
+                    validatePhone(phone) &&
+                    validateFIO(FIO) &&
+                    validateWallet(wallet)
+                ) {
+                    handleOpen();
+                    submit();
+                } else {
+                    setSnackbarMessage('Пожалуйста, заполните все поля правильно.');
+                    setShowSnackbar(true);
+                    setTimeout(() => {
+                        setShowSnackbar(false);
+                        setSnackbarMessage('');
+                    }, 5000);
+                }
             } else {
-                setSnackbarMessage('Пожалуйста, заполните все поля правильно.');
+                setSnackbarMessage('Сумма к обмену не корректна.');
                 setShowSnackbar(true);
                 setTimeout(() => {
                     setShowSnackbar(false);
