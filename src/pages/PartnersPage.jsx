@@ -2,6 +2,7 @@ import React from 'react';
 
 const PartnersPage = () => {
     return (
+        <div className="h100">
         <div className="scrollable-container">
             <div className="scrollable-content">
                 <h1>Партнерская программа</h1>
@@ -21,6 +22,7 @@ const PartnersPage = () => {
 
                 <p>Также, для получения дополнительной информации вы можете обратиться в Службу поддержки.</p>
             </div>
+        </div>
         </div>
     );
 };

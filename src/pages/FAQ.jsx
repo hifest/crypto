@@ -7,6 +7,7 @@ const FAQ = () => {
 
 
     return (
+        <div className="h100">
     <div className="scrollable-container more-height">
         <div className="scrollable-content">
             <h1>FAQ</h1>
@@ -170,6 +171,7 @@ const FAQ = () => {
         </div>
     </div>
 </div>
+        </div>
     );
 };
 

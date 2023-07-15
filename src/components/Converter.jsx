@@ -177,14 +177,15 @@ export const Converter = () => {
     const [showSnackbar, setShowSnackbar] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [open, setOpen] = React.useState(false);
-
-
+    const [id,setId] = useState(Date.now())
 
     const sendDataUser = (e) => {
         e.preventDefault();
         const user = auth.currentUser?.uid; // Отримати uid користувача (перевірити, чи існує auth.currentUser)
         const db = getDatabase();
+        const newPostKey = push(child(ref(db), 'operations')).key;
         const postData = {
+            IDForSearch: newPostKey,
             currency: currencyFromValue,
             amount: amountFromValue,
             currency2: currencyToValue,
@@ -194,9 +195,9 @@ export const Converter = () => {
             FIO: FIO,
             walletDalboeba: wallet,
             date: `${day}.${month}.${year}, ${hours}:${minutes}`,
-            wallet: obj[currencyFromValue].wallet
+            wallet: obj[currencyFromValue].wallet,
+            transId: id
         };
-        const newPostKey = push(child(ref(db), 'operations')).key;
         const updates = {};
         updates['/users/' + user + "/operations/" + newPostKey] = postData;
 
@@ -208,11 +209,15 @@ export const Converter = () => {
         validate();
     }, [currencyFromValue, amountFromValue, currencyToValue]);
 
-    const handleOpen = () => setOpen(true);
+    const handleOpen = () => {
+        setOpen(true)
+    };
     const handleClose = () => {
         setOpen(false);
     }
-
+    const changeId  = () =>{
+        setId(Date.now())
+    }
     const confirm = () => {
         if (isUserReg) {
             if (
@@ -350,7 +355,6 @@ export const Converter = () => {
     }
 
 
-    const id = Date.now();
 
     const date = new Date();
     const year = date.getFullYear();
@@ -504,12 +508,18 @@ export const Converter = () => {
                         <a href="#">пользовательским соглашением</a> нашего ресурса
                     </div>
                     <div className="form-btn-container">
-                        <Button className="form-btn" variant="contained" onClick={confirm}>
+                        <Button className="form-btn" variant="contained" onClick={e=>{
+                            sendDataUser(e)
+                            confirm()
+                        }}>
                             Обменять
                         </Button>
                         <Modal
                             open={open}
-                            onClose={handleClose}
+                            onClose={()=>{
+                                changeId()
+                                handleClose()
+                            }}
                             aria-labelledby="modal-modal-title"
                             aria-describedby="modal-modal-description">
                             <Box className="form-form" sx={style}>
@@ -559,10 +569,16 @@ export const Converter = () => {
                                 </div>
 
                                 <div className="modal-buttons">
-                                    <Button onClick={sendDataUser} className="form-btn modal-btn" variant="contained">
+                                    <Button className="form-btn modal-btn" variant="contained" onClick={()=>{
+                                        changeId()
+                                        handleClose()
+                                    }}>
                                         Я оплатил
                                     </Button>
-                                    <Button className="form-btn modal-btn" variant="contained" onClick={handleClose} >
+                                    <Button className="form-btn modal-btn" variant="contained" onClick={()=>{
+                                        changeId()
+                                        handleClose()
+                                    }} >
                                         Отмена
                                     </Button>
                                 </div>

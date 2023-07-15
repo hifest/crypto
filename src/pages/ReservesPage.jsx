@@ -6,7 +6,7 @@ import sberbank from "../img/sberbank.svg"
 
 const ReservesPage = () => {
     return (
-        <div className="container">
+        <>
             <h1 className="tac reserves__h1">Резерви</h1>
             <div className="reserves">
                 <div className="reserves__box">
@@ -54,7 +54,7 @@ const ReservesPage = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

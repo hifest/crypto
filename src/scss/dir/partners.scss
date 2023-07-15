@@ -4,16 +4,12 @@
   overflow: auto;
   background: white;
   border: 1px solid #ccc;
-  margin: 0 auto;
+  margin: 50px auto;
   border-radius: 5px;
   padding: 10px;
   -webkit-box-shadow: 10px 10px 25px 0px rgba(219, 219, 219, 1);
   -moz-box-shadow: 10px 10px 25px 0px rgba(219, 219, 219, 1);
   box-shadow: 10px 10px 25px 0px rgba(219, 219, 219, 0.3);
-  position: absolute;
-  transform: translate(-50%,-50%);
-  top: 50%;
-  left: 50%;
 }
 
 .scrollable-content {

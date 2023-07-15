@@ -8,10 +8,13 @@ import FAQ from "./pages/FAQ";
 import HistoryPage from "./pages/HistoryPage";
 import PartnersPage from "./pages/PartnersPage";
 import ReservesPage from "./pages/ReservesPage";
+import Footer from "./components/Footer";
+import TermsPage from "./pages/TermsPage";
+import PrivacyPage from "./pages/PrivacyPage";
 
 function App() {
   return (
-      <>
+      <main>
                 <BrowserRouter>
                     <Header/>
                     <div className="container">
@@ -22,11 +25,14 @@ function App() {
                             <Route path="/history" element={<HistoryPage />} />
                             <Route path="/partners" element={<PartnersPage />} />
                             <Route path="/reserves" element={<ReservesPage />} />
+                            <Route path='/terms' element={<TermsPage/>}/>
+                            <Route path='/privacy' element={<PrivacyPage/>}/>
                             <Route path="/" element={<MainPage />} />
                         </Routes>
                         </div>
+                    <Footer/>
                 </BrowserRouter>
-    </>
+    </main>
   );
 }
 export default App;

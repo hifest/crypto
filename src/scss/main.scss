@@ -10,6 +10,8 @@
 @import "./dir/accordeon";
 @import "./dir/lastTransaction";
 @import "./dir/reserves";
+@import "./dir/history";
+@import "./dir/footer";
 *{
   font-family: 'Montserrat', sans-serif;
 }
@@ -22,6 +24,7 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active  {
   box-shadow: 0 0 0 30px #BBE1FA inset !important;
 }
+
 .tac{
   text-align: center;
   a{
@@ -36,5 +39,11 @@ input:-webkit-autofill:active  {
 .container {
     max-width: 1470px;
     margin: 0 auto;
-  }
-
+}
+.h100{
+  height: 100vh;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+    }
