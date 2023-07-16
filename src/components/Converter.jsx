@@ -197,7 +197,7 @@ export const Converter = () => {
             walletDalboeba: wallet,
             dateStart: `${day}.${month}.${year}, ${hours}:${minutes}`,
             dateEnd: `${day2}.${month2}.${year2}, ${hours2}:${minutes2}`,
-            dataForCalculaticng: `${year}-${month}-${day}T${hours}:${minutes}:00`,
+            // dataForCalculaticng: `${year}-${month}-${day}T${hours}:${minutes}:00`,
             wallet: obj[currencyFromValue].wallet,
             transId: id
         };
@@ -368,20 +368,24 @@ export const Converter = () => {
 
 
 
+    const formatDate = (date) => {
+        return date.toString().padStart(2, '0');
+    };
+
     const date = new Date();
     const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
+    const month = formatDate(date.getMonth() + 1);
+    const day = formatDate(date.getDate());
+    const hours = formatDate(date.getHours());
+    const minutes = formatDate(date.getMinutes());
 
     const date2 = new Date();
     date2.setMinutes(date.getMinutes() + 30);
     const year2 = date2.getFullYear();
-    const month2 = date2.getMonth() + 1;
-    const day2 = date2.getDate();
-    const hours2 = date2.getHours();
-    const minutes2 = date2.getMinutes();
+    const month2 = formatDate(date2.getMonth() + 1);
+    const day2 = formatDate(date2.getDate());
+    const hours2 = formatDate(date2.getHours());
+    const minutes2 = formatDate(date2.getMinutes());
 
 
     return (
