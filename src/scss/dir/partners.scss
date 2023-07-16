@@ -1,15 +1,14 @@
 .scrollable-container {
-  width: 1157px;
-  height: 50vh;
+  width: 80%;
+  height: 100vh;
   overflow: auto;
   background: white;
   border: 1px solid #ccc;
   margin: 50px auto;
   border-radius: 5px;
+  font-size: 22px;
   padding: 10px;
-  -webkit-box-shadow: 10px 10px 25px 0px rgba(219, 219, 219, 1);
-  -moz-box-shadow: 10px 10px 25px 0px rgba(219, 219, 219, 1);
-  box-shadow: 10px 10px 25px 0px rgba(219, 219, 219, 0.3);
+  box-shadow: 10px 10px 25px 0px rgba(178, 178, 178, 0.3);
 }
 
 .scrollable-content {

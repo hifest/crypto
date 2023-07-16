@@ -3,9 +3,8 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import {obj} from "../components/Converter";
 import {auth} from "../firebase"
-import { getDatabase, ref, onValue } from "firebase/database";
+import {getDatabase, onValue, ref} from "firebase/database";
 import {onAuthStateChanged} from "firebase/auth";
 
 const style = {
@@ -48,24 +47,47 @@ const HistoryPage = () => {
         fetchData();
     }, [auth]);
 
-    // function isPast30Minutes(dateString) {
-    //     const now = new Date();
-    //     const dateComponents = dateString.toString().split(/[.,: ]/);
-    //     console.log(dateComponents);
-    //     const day = dateComponents[0];
-    //     const month = dateComponents[1];
-    //     const year = dateComponents[2];
-    //     const hour = dateComponents[3];
-    //     const minute = dateComponents[4];
-    //     console.log(day, month, year, hour, minute);
-    //     const date = new Date(year, month - 1, day, hour, minute);
-    //     console.log(date);
-    //     const timeDiff = Math.floor((now.getTime() - date.getTime()) / 60000);
-    //     console.log(timeDiff);
-    //     return timeDiff >= 30;
-    // }
+    function isPast30Minutes(dateString) {
+        // Розбиваємо рядок на складові часу
+        const [year, month, day, hour, minute, second] = dateString.split(/[-T:]/).map(Number);
+
+        // Створюємо об'єкт дати з отриманих складових
+        const date = new Date(year, month - 1, day, hour, minute, second);
+
+        // Отримуємо поточну дату та час
+        const now = new Date();
+
+        // Додаємо 30 хвилин до заданої дати
+        date.setMinutes(date.getMinutes() + 30);
+
+        // Перевіряємо, чи поточний час після доданої дати
+        return now > date;
+    }
 
 
+    function minutesUntil30MinutesAfter(dateString) {
+        // Розбиваємо рядок на складові часу
+        const [year, month, day, hour, minute, second] = dateString.split(/[-T:]/).map(Number);
+
+        // Створюємо об'єкт дати з отриманих складових
+        const date = new Date(year, month - 1, day, hour, minute, second);
+
+        // Додаємо 30 хвилин до заданої дати
+        date.setMinutes(date.getMinutes() + 30);
+
+        // Отримуємо поточну дату та час
+        const now = new Date();
+
+        // Різниця між поточним часом і доданою датою в хвилинах
+        const diffInMinutes = Math.floor((date - now) / (1000 * 60));
+
+        // Перевіряємо, чи пройшло вже 30 хвилин
+        if (diffInMinutes <= 0) {
+            return false;
+        }
+
+        return diffInMinutes;
+    }
 
 
 
@@ -97,22 +119,24 @@ const HistoryPage = () => {
         const wallet = dataForModal.wallet;
         navigator.clipboard.writeText(wallet)
     }
-    // console.log(data)
+
     return (
         <>
+       {data ?
         <div className="history__container">
-            {Object.keys(data).map((key) => (
+             {Object.keys(data).map((key) => (
                 <div key={key} onClick={()=>getData(data[key].IDForSearch)}>
                         <div className="history__block">
                             <div>ID Транзакции: {data[key].transId}</div>
-                            {<div>Время: {data[key].date}</div>}
+                            {<div>Время: {data[key].dateStart}</div>}
                             <div>Email: {data[key].email}</div>
                             <p>Нажмите, чтобы открыть</p>
-                            {/*<div className={isPast30Minutes(new Date(data[key].email)) ? "history__divider red" : "history__divider green"}></div>*/}
+                            <div className={isPast30Minutes(data[key].dataForCalculaticng) ? "history__divider red" : "history__divider green"}></div>
                         </div>
                 </div>
                 ))}
         </div>
+           : <div className="h1100">У ВАС НЕТУ ТРАНЗАКЦИЙ</div> }
             <Modal
                 open={open}
                 onClose={()=>{
@@ -139,11 +163,11 @@ const HistoryPage = () => {
                         <div className="form-gridbox lf first">
                             <div className="form-grids ">Дата создания:</div></div>
                         <div className="form-gridbox">
-                            <div className="form-grids">{dataForModal.date}</div></div>
+                            <div className="form-grids">{dataForModal.dateStart}</div></div>
                         <div className="form-gridbox lf first">
                             <div className="form-grids ">Дата окончания:</div></div>
                         <div className="form-gridbox">
-                            <div className="form-grids">dataForModal.amount</div></div>
+                            <div className="form-grids">{dataForModal.dateEnd}</div></div>
                         <div className="form-gridbox lf first">
                             <div className="form-grids ">Реквизиты получателя:	</div></div>
                         <div className="form-gridbox">
@@ -151,7 +175,9 @@ const HistoryPage = () => {
                         <div className="form-gridbox lf first">
                             <div className="form-grids  ">Время для оплаты:</div></div>
                         <div className="form-gridbox">
-                            <div className="form-grids gr">Время для оплаты вышло</div></div>
+                            {dataForModal.dataForCalculaticng ?
+                            <div className={isPast30Minutes(dataForModal.dataForCalculaticng) ? "form-grids red-text": "form-grids green-text"}>{minutesUntil30MinutesAfter(dataForModal.dataForCalculaticng) ? minutesUntil30MinutesAfter(dataForModal.dataForCalculaticng) : "время для оплати вишло"}</div> : "Нету данних" }
+                            </div>
                         <div className="form-gridbox lf first">
                             <div className="form-grids  ">Статус:</div></div>
                         <div className="form-gridbox">

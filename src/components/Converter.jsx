@@ -565,7 +565,7 @@ export const Converter = () => {
                                 <div className="form-gridbox lf first">
                                     <div className="form-grids  ">Время для оплаты:</div></div>
                                 <div className="form-gridbox">
-                                    <div className="form-grids gr">Время для оплаты вышло</div></div>
+                                    <div className="form-grids gr">30 минут</div></div>
                                 <div className="form-gridbox lf first">
                                     <div className="form-grids  ">Статус:</div></div>
                                 <div className="form-gridbox">

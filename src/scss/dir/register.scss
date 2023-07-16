@@ -1,21 +1,17 @@
 .register{
   padding: 41px 36px;
   border-radius: 5px;
-  background-color: #BBE1FA;
+  background-color: #DBC4F0;
   margin: 0 auto;
-  width: 30%;
+  width: 70%;
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 
 
   &__header{
     font-size: 36px;
     font-weight: 600;
-    color: #0F4C75;
+    color: black;
     letter-spacing: .1px;
     margin-bottom: 36px;
   }
@@ -40,7 +36,7 @@
     height: 3px;
     border-radius: 50%;
     vertical-align: middle;
-    background-color: #0F4C75;
+    background-color: #DBC4F0;
     margin: 0 6px;
   }
   }
@@ -54,20 +50,20 @@ $gray: #9b9b9b;
   padding: 15px 0 0;
   margin-top: 10px;
   width: 100%;
+
 }
 
 .form__field {
   font-family: inherit;
   width: 100%;
   border: 0;
-  border-bottom: 2px solid #0F4C75;
+  border-bottom: 2px solid black;
   outline: 0;
   font-size: 1.1rem;
   color: #1B262C;
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
-
   &::placeholder {
     color: transparent;
   }

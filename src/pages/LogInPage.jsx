@@ -34,7 +34,7 @@ const LogInPage = () => {
     }
 
     return (
-        <>
+        <div className="h100">
         <form className="register" onSubmit={LogIn}>
             <h2 className="register__header">Вход</h2>
 
@@ -70,7 +70,7 @@ const LogInPage = () => {
                 <button className="btn_reg m2auto" onClick={ResetPassword}>Востановить пароль</button>
                 {modalInfo ? <p className="red tac">{modalInfo}</p> : null}
             </Modal>
-        </>
+        </div>
     );
 
 };

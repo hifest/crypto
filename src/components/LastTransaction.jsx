@@ -13,7 +13,7 @@ const LastTransaction = () => {
     const keys = Object.keys(obj);
     const randomData = [];
 
-    while (randomData.length < 15) {
+    while (randomData.length < 25) {
         const randomKey1 = keys[Math.floor(Math.random() * keys.length)];
         const randomKey2 = keys[Math.floor(Math.random() * keys.length)];
 

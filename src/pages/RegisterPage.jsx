@@ -32,6 +32,7 @@ const RegisterPage = () => {
 
     }
     return (
+        <div className="h100">
         <form className="register" onSubmit={regUser}>
             <h2 className="register__header">Регистрация</h2>
 
@@ -65,6 +66,7 @@ const RegisterPage = () => {
                 <Link to="/login">Войти</Link>
             </p>
         </form>
+        </div>
     );
 
 };

@@ -14,8 +14,9 @@ import PrivacyPage from "./pages/PrivacyPage";
 
 function App() {
   return (
+      <BrowserRouter>
       <main>
-                <BrowserRouter>
+                <>
                     <Header/>
                     <div className="container">
                         <Routes>
@@ -30,9 +31,10 @@ function App() {
                             <Route path="/" element={<MainPage />} />
                         </Routes>
                         </div>
-                    <Footer/>
-                </BrowserRouter>
+                </>
     </main>
+    <Footer/>
+      </BrowserRouter>
   );
 }
 export default App;
