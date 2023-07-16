@@ -17,6 +17,7 @@ function App() {
       <BrowserRouter>
       <main>
                 <>
+
                     <Header/>
                     <div className="container">
                         <Routes>
