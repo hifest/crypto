@@ -17,9 +17,13 @@
       margin: 0 auto;
       padding: 36px;
     }
+    &-form {
+      min-width: 539px !important;
+      height: 500px;
+    }
   }
 }
-@media (max-width: 425px) {
+@media (max-width: 426px) {
   .reserves {
     flex-direction: column;
     margin: 0 auto;
@@ -27,6 +31,20 @@
   }
   .accordion-title {
     padding: 10px 10px;
+  }
+  .form-grid {
+    width: 58%;
+    height: 300px;
+    //font-size: 10px;
+  }
+  .form-grids {
+    padding: 7px;
+  }
+  .modal-subtext {
+    display: grid;
+    justify-content: center;
+    padding: 20px 0 30px 0;
+    font-size: 12px;
   }
 }
 @media (max-width: 375px) {
@@ -55,7 +73,7 @@
     font-size: 12px;
   }
 }
-@media (max-width: 320px) {
+@media (max-width: 321px) {
   .trans__box {
     display: flex;
     justify-content: space-between;
@@ -63,6 +81,11 @@
     font-size: 14px;
     align-items: center;
     align-content: center;
+  }
+  .form-grid {
+    width: 52%;
+    height: 300px;
+    font-size: 14px;
   }
 }
 @media (max-width: 982px) {
