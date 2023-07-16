@@ -65,3 +65,20 @@
     align-content: center;
   }
 }
+@media (max-width: 982px) {
+  .header__logo{
+    h1{
+      font-size: 1em;
+      margin-right: 5px;
+    }
+  }
+  .header{
+    padding: 10px;
+  }
+}
+@media (max-width: 840px) {
+  .header_link{
+    margin-right: 8px;
+    font-size: 13px;
+  }
+}

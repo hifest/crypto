@@ -197,7 +197,7 @@ export const Converter = () => {
             walletDalboeba: wallet,
             dateStart: `${day}.${month}.${year}, ${hours}:${minutes}`,
             dateEnd: `${day2}.${month2}.${year2}, ${hours2}:${minutes2}`,
-            // dataForCalculaticng: `${year}-${month}-${day}T${hours}:${minutes}:00`,
+            dataForCalculaticng: `${year}-${month}-${day}T${hours}:${minutes}:00`,
             wallet: obj[currencyFromValue].wallet,
             transId: id
         };

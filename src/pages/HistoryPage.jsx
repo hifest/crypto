@@ -49,22 +49,22 @@ const HistoryPage = () => {
 
     function isPast30Minutes(dateString) {
         // Розбиваємо рядок на складові часу
-        const [year, month, day, hour, minute, second] = dateString.split(/[-T:]/).map(Number);
+       if(dateString){
+           const [year, month, day, hour, minute, second] = dateString.split(/[-T:]/).map(Number);
 
-        // Створюємо об'єкт дати з отриманих складових
-        const date = new Date(year, month - 1, day, hour, minute, second);
+           // Створюємо об'єкт дати з отриманих складових
+           const date = new Date(year, month - 1, day, hour, minute, second);
 
-        // Отримуємо поточну дату та час
-        const now = new Date();
+           // Отримуємо поточну дату та час
+           const now = new Date();
 
-        // Додаємо 30 хвилин до заданої дати
-        date.setMinutes(date.getMinutes() + 30);
+           // Додаємо 30 хвилин до заданої дати
+           date.setMinutes(date.getMinutes() + 30);
 
-        // Перевіряємо, чи поточний час після доданої дати
-        return now > date;
+           // Перевіряємо, чи поточний час після доданої дати
+           return now > date;
+       }
     }
-
-
     function minutesUntil30MinutesAfter(dateString) {
         // Розбиваємо рядок на складові часу
         const [year, month, day, hour, minute, second] = dateString.split(/[-T:]/).map(Number);
@@ -123,9 +123,10 @@ const HistoryPage = () => {
     return (
         <>
        {data ?
-        <div className="history__container">
-             {Object.keys(data).map((key) => (
-                <div key={key} onClick={()=>getData(data[key].IDForSearch)}>
+        <>
+            <div className="history__container">
+                {Object.keys(data).map((key) => (
+                    <div key={key} onClick={()=>getData(data[key].IDForSearch)}>
                         <div className="history__block">
                             <div>ID Транзакции: {data[key].transId}</div>
                             {<div>Время: {data[key].dateStart}</div>}
@@ -133,10 +134,9 @@ const HistoryPage = () => {
                             <p>Нажмите, чтобы открыть</p>
                             <div className={isPast30Minutes(data[key].dataForCalculaticng) ? "history__divider red" : "history__divider green"}></div>
                         </div>
-                </div>
+                    </div>
                 ))}
-        </div>
-           : <div className="h1100">У ВАС НЕТУ ТРАНЗАКЦИЙ</div> }
+            </div>
             <Modal
                 open={open}
                 onClose={()=>{
@@ -176,8 +176,8 @@ const HistoryPage = () => {
                             <div className="form-grids  ">Время для оплаты:</div></div>
                         <div className="form-gridbox">
                             {dataForModal.dataForCalculaticng ?
-                            <div className={isPast30Minutes(dataForModal.dataForCalculaticng) ? "form-grids red-text": "form-grids green-text"}>{minutesUntil30MinutesAfter(dataForModal.dataForCalculaticng) ? minutesUntil30MinutesAfter(dataForModal.dataForCalculaticng) : "время для оплати вишло"}</div> : "Нету данних" }
-                            </div>
+                                <div className={isPast30Minutes(dataForModal.dataForCalculaticng) ? "form-grids red-text": "form-grids green-text"}>{minutesUntil30MinutesAfter(dataForModal.dataForCalculaticng) ? minutesUntil30MinutesAfter(dataForModal.dataForCalculaticng) : "время для оплати вишло"}</div> : "Нету данних" }
+                        </div>
                         <div className="form-gridbox lf first">
                             <div className="form-grids  ">Статус:</div></div>
                         <div className="form-gridbox">
@@ -206,6 +206,8 @@ const HistoryPage = () => {
                     </div>
                 </Box>
             </Modal>
+        </>
+            : <div className="h1100">У ВАС НЕТУ ТРАНЗАКЦИЙ</div> }
         </>
     );
 };
