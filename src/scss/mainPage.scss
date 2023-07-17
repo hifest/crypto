@@ -52,11 +52,12 @@
   &-control {
     display: flex;
     flex-direction: row;
+    padding-bottom: 20px;
   }
   &-img {
-    width: 100px;
+    width: 60px;
     padding-right: 10px;
-    height: 100px;
+    height: 60px;
   }
   &-select {
     width: 85%;
