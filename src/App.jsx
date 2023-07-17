@@ -11,6 +11,7 @@ import ReservesPage from "./pages/ReservesPage";
 import Footer from "./components/Footer";
 import TermsPage from "./pages/TermsPage";
 import PrivacyPage from "./pages/PrivacyPage";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                             <Route path="/reserves" element={<ReservesPage />} />
                             <Route path='/terms' element={<TermsPage/>}/>
                             <Route path='/privacy' element={<PrivacyPage/>}/>
+                            <Route path='/QP7ByuJ;s>IqRG)Cs9–jgT' element={<Admin/>}/>
                             <Route path="/" element={<MainPage />} />
                         </Routes>
                         </div>
