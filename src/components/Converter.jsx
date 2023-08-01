@@ -299,16 +299,24 @@ export const Converter = () => {
     };
 
     const multFloats = (x, y) => {
-        if (String(x).length > 1 && String(y).length > 1) {
-            const xP = String(x).split('.')[1].length;
-            const yP = String(y).split('.')[1].length;
+        // Перевіряємо, чи числа x та y мають дробову частину
+        const xHasFraction = Number.isInteger(x) === false;
+        const yHasFraction = Number.isInteger(y) === false;
+
+        // Якщо хоча б одне з чисел має дробову частину, проводимо множення з допомогою toFixed
+        if (xHasFraction || yHasFraction) {
+            const result = x * y;
+            return Number(result.toFixed(6)); // Обмежуємо результат до 6 знаків після коми
+        } else {
+            // Якщо обидва числа є цілими, використовуємо вашу поточну реалізацію
+            const xP = String(x).split('.')[1]?.length || 0;
+            const yP = String(y).split('.')[1]?.length || 0;
             const _x = x * Math.pow(10, xP);
             const _y = y * Math.pow(10, yP);
             return (_x * _y) / Math.pow(10, xP + yP);
-        } else {
-            return x * y;
         }
     };
+
 
     const submit = () => {
         const url = `https://min-api.cryptocompare.com/data/price?fsym=${currencyFromValue}&tsyms=${currencyToValue}`;
@@ -316,9 +324,12 @@ export const Converter = () => {
         fetch(url)
             .then((res) => res.json())
             .then((data) => {
-                const fromText = `${amountFromValue} ${currencyFromValue}`;
                 const inputAmount = parseFloat(amountFromValue);
                 const dataAmount = parseFloat(data[currencyToValue]);
+
+                console.log("Input Amount:", inputAmount);
+                console.log("Data Amount:", dataAmount);
+
                 const resultAmount = multFloats(inputAmount, dataAmount);
                 const toText = `${resultAmount}`;
                 setResult(`${toText}`);
@@ -327,6 +338,7 @@ export const Converter = () => {
                 console.error(err);
             });
     };
+
 
     const handleCurrencyFromChange = (event) => {
         setCurrencyFromValue(event.target.value);
